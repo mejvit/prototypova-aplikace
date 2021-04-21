@@ -1,0 +1,7 @@
+{
+  "name": "prototypova-aplikace",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
