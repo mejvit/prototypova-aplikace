@@ -44,7 +44,7 @@ export default defineComponent({
     return {
       appFunctions: [
         {
-          name: "Kamera",
+          name: "Fotoaparát",
           route: "/camera",
           icon: camera
         },
