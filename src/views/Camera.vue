@@ -1,7 +1,7 @@
 <template>
   <ion-page>
+    <page-header>Fotoaparát</page-header>
     <ion-content :fullscreen="true">
-      <page-header>Fotoaparát</page-header>
       <ion-grid>
         <ion-row>
           <ion-col size="6" :key="photo.webPath" v-for="photo in photos">
@@ -20,7 +20,10 @@
 
 <script lang="ts">
 import PageHeader from "@/components/PageHeader.vue";
-import { actionSheetController } from '@ionic/vue';
+import { 
+  IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon, IonImg, IonPage, IonRow, 
+  actionSheetController 
+} from '@ionic/vue';
 import { defineComponent, ref } from "vue";
 import { Plugins, CameraResultType, CameraSource, CameraPhoto } from "@capacitor/core";
 import { camera, close, trash } from 'ionicons/icons';
@@ -29,7 +32,10 @@ const { Camera } = Plugins;
 
 export default defineComponent({
   name: "Camera",
-  components: { PageHeader },
+  components: {
+    IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon, IonImg, IonPage, IonRow, 
+    PageHeader
+  },
 
   setup() {
     const photos = ref<CameraPhoto[]>([]);
