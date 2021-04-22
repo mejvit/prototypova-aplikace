@@ -19,10 +19,10 @@
 
 <script lang="ts">
 import {
-  IonApp, IonContent, IonItem, IonList, IonListHeader, IonMenu, IonMenuToggle,
+  IonApp, IonContent, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle,
   IonRouterOutlet, menuController
 } from '@ionic/vue';
-import { camera, folder, micOutline, server } from 'ionicons/icons';
+import { camera, compassOutline, folder, micOutline, server } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -33,6 +33,7 @@ export default defineComponent({
     IonApp,
     IonContent,
     IonItem,
+    IonLabel,
     IonList,
     IonListHeader,
     IonMenu,
@@ -47,6 +48,11 @@ export default defineComponent({
           name: "Fotoaparát",
           route: "/camera",
           icon: camera
+        },
+        {
+          name: "Poloha zařízení",
+          route: "/geolocation",
+          icon: compassOutline
         },
         {
           name: "Souborový systém",
@@ -73,7 +79,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     return {
-      camera, folder, micOutline, server, route
+      camera, compassOutline, folder, micOutline, server, route
     }
   }
 });
