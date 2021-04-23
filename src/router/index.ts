@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import Home from '../views/Home.vue'
 import Camera from '../views/Camera.vue'
+import GeoLocation from '../views/GeoLocation.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -17,6 +18,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/camera',
     name: 'Camera',
     component: Camera
+  },
+  {
+    path: '/geolocation',
+    component: () => import('@/views/GeoLocation.vue')
   }
 ]
 
