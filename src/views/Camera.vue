@@ -2,7 +2,10 @@
   <ion-page>
     <page-header>Fotoaparát</page-header>
     <ion-content :fullscreen="true">
-      <ion-grid>
+      <div v-if="photos.length == 0" class="no-photos">
+        <p>Zatím nebyly pořízeny žádné fotografie</p>
+      </div>
+      <ion-grid v-else>
         <ion-row>
           <ion-col size="6" :key="photo.webPath" v-for="photo in photos">
             <ion-img :src="photo.webPath" @click="showActionSheet(photo.webPath)"></ion-img>
@@ -92,3 +95,16 @@ export default defineComponent({
 
 });
 </script>
+
+<style scoped>
+.no-photos {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+}
+.no-photos p {
+  width: 100%;
+  align-self: center;
+  text-align: center;
+}
+</style>
