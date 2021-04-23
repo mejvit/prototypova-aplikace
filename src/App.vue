@@ -22,7 +22,9 @@ import {
   IonApp, IonContent, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle,
   IonRouterOutlet, menuController
 } from '@ionic/vue';
-import { camera, compassOutline, folder, micOutline, server } from 'ionicons/icons';
+import { 
+  camera, compassOutline, fingerPrintOutline, folder, micOutline, server 
+} from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -68,7 +70,12 @@ export default defineComponent({
           name: "Úložiště SQLite",
           route: "/sqlite",
           icon: server
-        }
+        },
+        {
+          name: "Haptické funkce",
+          route: "/haptics",
+          icon: fingerPrintOutline
+        },
       ]
     }
   },
@@ -79,7 +86,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     return {
-      camera, compassOutline, folder, micOutline, server, route
+      camera, compassOutline, fingerPrintOutline, folder, micOutline, server, route
     }
   }
 });
