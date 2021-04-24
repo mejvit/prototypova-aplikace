@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue'
-import Camera from '../views/Camera.vue'
-import GeoLocation from '../views/GeoLocation.vue'
-import Haptics from '../views/Haptics.vue'
+import Home from '../views/Home.vue';
+import Camera from '../views/Camera.vue';
+import Device from '../views/Device.vue';
+import GeoLocation from '../views/GeoLocation.vue';
+import Haptics from '../views/Haptics.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -29,6 +30,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/haptics',
     name: 'Haptics',
     component: Haptics
+  },
+  {
+    path: '/device',
+    name: 'Device',
+    component: Device
   },
 ]
 

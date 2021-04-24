@@ -23,7 +23,7 @@ import {
   IonRouterOutlet, menuController
 } from '@ionic/vue';
 import { 
-  camera, compassOutline, fingerPrintOutline, folder, micOutline, server 
+  camera, compassOutline, fingerPrintOutline, folder, informationCircleOutline, micOutline, server 
 } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
@@ -76,6 +76,11 @@ export default defineComponent({
           route: "/haptics",
           icon: fingerPrintOutline
         },
+        {
+          name: "Informace o zařízení",
+          route: "/device",
+          icon: informationCircleOutline
+        }
       ]
     }
   },
@@ -86,7 +91,8 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     return {
-      camera, compassOutline, fingerPrintOutline, folder, micOutline, server, route
+      camera, compassOutline, fingerPrintOutline, folder, informationCircleOutline, micOutline, server,
+      route
     }
   }
 });

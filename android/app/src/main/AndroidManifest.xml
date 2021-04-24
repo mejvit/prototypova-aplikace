@@ -54,7 +54,6 @@
     <uses-feature android:name="android.hardware.location.gps" />
     <!-- Haptics -->
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <!-- Network API -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Navigator.getUserMedia -->
