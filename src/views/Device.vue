@@ -131,6 +131,7 @@ import { Plugins, DeviceInfo, DeviceBatteryInfo, DeviceLanguageCodeResult } from
 const { Device } = Plugins;
 
 export default defineComponent({
+  name: "Device",
   components: {
     IonContent, IonLabel, IonItem, IonList, IonListHeader, IonPage,
     PageHeader,
@@ -150,9 +151,9 @@ export default defineComponent({
 
       await loading.present();
       deviceInfo.value = await Device.getInfo();
-      console.log(deviceInfo.value);
       batteryInfo.value = await Device.getBatteryInfo();
       languageCode.value = await Device.getLanguageCode();
+      
       infoLoaded.value = true;
       loading.dismiss();
     });

@@ -18,6 +18,7 @@ import { Plugins, HapticsNotificationOptions, HapticsNotificationType } from "@c
 const { Haptics } = Plugins;
 
 export default defineComponent({
+  name: "Haptics",
   components: {
     IonButton, IonContent, IonPage,
     PageHeader,

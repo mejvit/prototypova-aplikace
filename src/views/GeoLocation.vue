@@ -23,6 +23,7 @@ import { Plugins, GeolocationPosition } from "@capacitor/core";
 const { Geolocation } = Plugins;
 
 export default defineComponent({
+  name: "GeoLocation",
   components: {
     IonContent, IonPage,
     PageHeader
