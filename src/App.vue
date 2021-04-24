@@ -23,7 +23,7 @@ import {
   IonRouterOutlet, menuController
 } from '@ionic/vue';
 import { 
-  camera, compassOutline, fingerPrintOutline, folder, informationCircleOutline, micOutline, server 
+  camera, compassOutline, fingerPrintOutline, folder, globeOutline, informationCircleOutline, micOutline, server 
 } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
@@ -62,6 +62,11 @@ export default defineComponent({
           icon: folder
         },
         {
+          name: "Připojení k síti",
+          route: "/network",
+          icon: globeOutline
+        },
+        {
           name: "Záznam zvuku",
           route: "/soundrecord",
           icon: micOutline
@@ -91,7 +96,7 @@ export default defineComponent({
   setup() {
     const route = useRoute();
     return {
-      camera, compassOutline, fingerPrintOutline, folder, informationCircleOutline, micOutline, server,
+      camera, compassOutline, fingerPrintOutline, folder, globeOutline, informationCircleOutline, micOutline, server,
       route
     }
   }

@@ -5,6 +5,7 @@ import Camera from '../views/Camera.vue';
 import Device from '../views/Device.vue';
 import GeoLocation from '../views/GeoLocation.vue';
 import Haptics from '../views/Haptics.vue';
+import Network from '../views/Network.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -35,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/device',
     name: 'Device',
     component: Device
+  },
+  {
+    path: '/network',
+    name: 'Network',
+    component: Network
   },
 ]
 
