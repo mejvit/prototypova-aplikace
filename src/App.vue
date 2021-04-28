@@ -1,6 +1,6 @@
 <template>
   <ion-app>
-  <ion-menu content-id="content" menu-id="another-menu">
+  <ion-menu contentId="content" menuId="main-menu">
     <ion-list-header>Nativní funkce</ion-list-header>
     <ion-content>
       <ion-list>
@@ -13,13 +13,13 @@
       </ion-list>
     </ion-content>
   </ion-menu>
-  <ion-router-outlet id="content" />
+  <ion-router-outlet id="content"></ion-router-outlet>
   </ion-app>
 </template>
 
 <script lang="ts">
 import {
-  IonApp, IonContent, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle,
+  IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle,
   IonRouterOutlet, menuController
 } from '@ionic/vue';
 import { 
@@ -34,6 +34,7 @@ export default defineComponent({
   components: {
     IonApp,
     IonContent,
+    IonIcon,
     IonItem,
     IonLabel,
     IonList,

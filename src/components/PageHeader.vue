@@ -2,7 +2,7 @@
   <ion-header :translucent="true">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-menu-button auto-hide="false" />
+        <ion-menu-button auto-hide="false" menu="main-menu"/>
       </ion-buttons>
       <ion-title>
         <slot></slot>
