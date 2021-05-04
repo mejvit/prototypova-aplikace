@@ -42,7 +42,9 @@ if (isPlatform('hybrid')) {
   const { getDbInstance } = useSQLiteInApp();    
   getDbInstance().then((db: SQLiteDBConnection) => {
     app.config.globalProperties.$database = db;
-    
+    router.isReady().then(() => {
+      app.mount('#app');
+    });
   });
 }
 else {
