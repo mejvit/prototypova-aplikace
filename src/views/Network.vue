@@ -70,22 +70,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style scoped>
-  .coords {
-    margin: 3em;
-  }
-
-  .coords dt {
-    font-weight: bold;
-    margin-top: 1em;
-  }
-
-  .coords dt:first-child {
-    margin-top: 0;
-  }
-
-  .coords dd {
-    margin-top: 0.5em;
-  }
-</style>
