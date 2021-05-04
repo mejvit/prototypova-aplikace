@@ -7,34 +7,61 @@
           <ion-title size="large">Blank</ion-title>
         </ion-toolbar>
       </ion-header>
-    
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6" v-for="(link, i) in appLinks" :key="i" >
+            <ion-card @click="() => router.push(link.route)" class="custom-card">
+              <ion-card-header class="ion-text-center">
+                <ion-icon :icon="link.icon" class="card-icon"></ion-icon>
+                <ion-card-title>{{ link.name }}</ion-card-title>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
 import PageHeader from '../components/PageHeader.vue'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import {
+  IonCard, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar
+} from '@ionic/vue';
 import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
+
 
 export default defineComponent({
   name: 'Home',
   components: {
-    IonContent,
+    IonCard, IonCardHeader, IonCardTitle, IonCol, IonContent,
+    IonGrid,
     IonHeader,
+    IonIcon,
     IonPage,
-    IonTitle,
-    IonToolbar,
+    IonRow,
+    IonTitle, IonToolbar,
     PageHeader
+  },
+  inject: ['appLinks'],
+  setup() {    
+    const router = useRouter();
+    return {router}
   }
 });
 </script>
 
 <style scoped>
+.custom-card {
+  height: 25vh;
+}
+
+.card-icon {
+  width: 100%;
+  font-size: 72px;
+}
+
 #container {
   text-align: center;
   
