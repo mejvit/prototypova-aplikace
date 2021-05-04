@@ -20,17 +20,36 @@ import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 
+import 'ol/ol.css';
+
 /* Theme variables */
 import './theme/variables.css';
-
 /* PWA elements*/
 import { defineCustomElements } from '@ionic/pwa-elements/loader'
 defineCustomElements(window);
 
+/* Capacitor SQLite */
+import { isPlatform } from '@ionic/vue';
+import { SQLiteDBConnection } from 'vue-sqlite-hook/dist';
+/* Use SQLite in app */
+import { useSQLiteInApp } from "./composables/useSQLiteInApp";
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router);
-  
-router.isReady().then(() => {
-  app.mount('#app');
-});
+
+if (isPlatform('hybrid')) {
+  const { getDbInstance } = useSQLiteInApp();    
+  getDbInstance().then((db: SQLiteDBConnection) => {
+    app.config.globalProperties.$database = db;
+    
+  });
+}
+else {
+  router.isReady().then(() => {
+    app.mount('#app');
+  });
+}
+
+
+

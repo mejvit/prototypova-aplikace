@@ -10,18 +10,27 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@capacitor-community/sqlite": "^2.9.16",
     "@capacitor/android": "^2.4.7",
     "@capacitor/core": "2.4.7",
+    "@capacitor/ios": "^2.4.7",
+    "@ionic-native/file": "^5.32.1",
+    "@ionic-native/media": "^5.32.1",
     "@ionic/pwa-elements": "^3.0.2",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
+    "@types/ol": "^6.4.2",
+    "cordova-plugin-file": "^6.0.2",
+    "cordova-plugin-media": "^5.0.3",
     "core-js": "^3.6.5",
+    "ol": "^6.5.0",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
     "@capacitor/cli": "2.4.7",
     "@types/jest": "^24.0.19",
+    "@types/openlayers": "^4.6.17",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -37,7 +46,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
     "typescript": "~3.9.3",
-    "vue-jest": "^5.0.0-0"
+    "vue-jest": "^5.0.0-0",
+    "vue-sqlite-hook": "^1.0.1"
   },
   "description": "An Ionic project"
 }
