@@ -4,6 +4,12 @@
     <ion-list-header>Nativní funkce</ion-list-header>
     <ion-content>
       <ion-list>
+        <ion-menu-toggle>
+          <ion-item router-link="/home" :class="{ selected: route.path === '/home' }">
+            <ion-icon slot="start" :icon="trailSignOutline" />
+            <ion-label>Úvodní stránka</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
         <ion-menu-toggle v-for="(item, i) in appFunctions" :key="i">
           <ion-item :router-link="item.route" :class="{ selected: route.path === item.route }">
             <ion-icon slot="start" :icon="item.icon" />
@@ -23,11 +29,10 @@ import {
   IonRouterOutlet, menuController
 } from '@ionic/vue';
 import { 
-  camera, compassOutline, fingerPrintOutline, folder, globeOutline, informationCircleOutline, micOutline, server 
+  camera, compassOutline, fingerPrintOutline, folder, globeOutline, informationCircleOutline, micOutline, server, trailSignOutline 
 } from 'ionicons/icons';
-import { defineComponent } from 'vue';
+import { defineComponent, getCurrentInstance, onMounted, onUnmounted } from 'vue';
 import { useRoute } from 'vue-router';
-
 
 export default defineComponent({
   name: 'App',
@@ -94,10 +99,22 @@ export default defineComponent({
     menuController.open('main-menu');
   },
   
+  provide() {
+    return {
+      appLinks: this.appFunctions
+    }
+  },
+
   setup() {
     const route = useRoute();
+    const app = getCurrentInstance();
+
+    onUnmounted (async () => {
+      const db = app?.appContext.config.globalProperties.$database;
+      await db.close();
+    });
     return {
-      camera, compassOutline, fingerPrintOutline, folder, globeOutline, informationCircleOutline, micOutline, server,
+      camera, compassOutline, fingerPrintOutline, folder, globeOutline, informationCircleOutline, micOutline, server, trailSignOutline,
       route
     }
   }
