@@ -1,24 +1,30 @@
 <template>
   <ion-page>
-    <page-header>Záznam zvuku</page-header>
-    <ion-content :fullscreen="true">
-      <ion-list>
-        <ion-item
-          v-on="record.isPlaying ? { click: () => stopRecord(record) } : { click: () => playRecord(record) }"
-          v-for="record in records" 
-          :key="record.filePath"
-          :disabled="isRecording"
+    <page-header>Nahrávání zvuku</page-header>
+    <ion-content>
+      <ion-list v-if="recordsLoaded">
+         <ion-item-sliding 
+          v-for="(path, i) in recordPaths" :key="i"
+          :disabled="recordPlayingPath === path && recordPlayingPath != ''"
         >
-          <ion-icon :icon="record.isPlaying ? stopOutline : playOutline" class="ion-margin"></ion-icon>
-          <p class="ion-margin">{{ record.fileName }}</p>
-        </ion-item>
+          <ion-item :disabled="recordPlayingPath !== path && recordPlayingPath != ''">
+            <span slot="start">
+              <div v-on="recordPlayingPath === path ? {click: () => stopRecord() } : { click: () => playRecord(path) }">
+                <ion-icon :icon="recordPlayingPath === path ? stopOutline : playOutline" class="record"></ion-icon>
+              </div>
+            </span>       
+            <ion-label>{{ path.substring(path.lastIndexOf('/')+1) }}</ion-label>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="danger" @click="deleteRecord(path)">
+              <ion-icon slot="start" :icon="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
       </ion-list>
       <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <ion-fab-button @click="stopRecording" v-if="isRecording">
-          <ion-icon :icon="stopOutline"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-button @click="startRecording" v-else>
-          <ion-icon :icon="micOutline"></ion-icon>
+        <ion-fab-button v-on="isRecording ? {click: () => stopRecording() } : { click: () => startRecording() }">
+          <ion-icon :icon="isRecording ? stopOutline : micOutline"></ion-icon>
         </ion-fab-button>
       </ion-fab>
     </ion-content>
@@ -26,123 +32,156 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, watch } from 'vue'
-import { 
-  IonContent, IonFab, IonFabButton, IonIcon, IonItem, IonLabel, IonList, IonPage, isPlatform,
+import PageHeader from '@/components/PageHeader.vue'
+import { micOutline, playOutline, stopOutline, trash } from 'ionicons/icons';
+import {
+  IonContent,
+  IonFab, IonFabButton,
+  IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
+  IonLabel, IonList,
+  IonPage,
+  isPlatform, loadingController
 } from '@ionic/vue';
-import { Plugins } from '@capacitor/core'
-import PageHeader from '../components/PageHeader.vue'
-import { Media, MediaObject} from '@ionic-native/media'
-import { File } from '@ionic-native/file'
-import { micOutline, playOutline, stopOutline } from 'ionicons/icons';
+import { Media, MediaObject} from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+import { defineComponent, onMounted, ref, watch } from 'vue'
+import { Plugins } from '@capacitor/core';
 
 export default defineComponent({
-  name: "Soundrecord",
   components: {
-    IonContent, IonFab, IonFabButton, IonIcon, IonItem, /*IonLabel,*/ IonList, IonPage,
+    IonContent,
+    IonFab, IonFabButton,
+    IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
+    IonLabel, IonList,
+    IonPage,
     PageHeader
   },
   setup() {
-    interface SoundRecord {
-      isPlaying: boolean;
-      fileName?: string;
-      filePath: string;
-      mediaObject?: MediaObject;
-    }
-
     const { Storage } = Plugins;
     const isRecording = ref<boolean>(false);
-    const fileBeingRecorded = ref<SoundRecord>();
-    const records = ref<SoundRecord[]>([]);
-
-    const getFileName = (filePath: string) => {
-      return filePath.replace(/^.*[\\/]/, '')
-    };
-
-    const startRecording = function() {
-      isRecording.value = true;
+    const media = Media;
+    const file = File;
+    let filePath: string;
+    const recordPaths = ref<string[]>([]);
+    const recordsLoaded = ref<boolean>(false);
+    let recordFile: MediaObject;
+    const recordPlayingPath = ref<string>("");
+    /**
+     * Prepares file path for new record
+     */
+    const getFilePath = (): string => {
       const fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.mp3';
-      
-      
-      let filePath = File.externalDataDirectory.replace(/file:\/\//g, '') + fileName;
-      if (isPlatform("ios")) {        
-        filePath = File.dataDirectory.replace(/file:\/\//g, '') + fileName;
+
+      if (isPlatform("android")) {
+        console.log(file.externalDataDirectory + fileName);
+        return file.externalDataDirectory.replace(/^file:\/\//, '') + fileName;
       }
-      fileBeingRecorded.value = {
-        isPlaying: false,
-        fileName: getFileName(filePath),
-        filePath: filePath,
-        mediaObject: Media.create(filePath)
-      };
+
+      return file.dataDirectory.replace(/^file:\/\//, '') + fileName;
     }
 
-    const stopRecording = function() {
-      fileBeingRecorded.value?.mediaObject?.stopRecord();
-      fileBeingRecorded.value?.mediaObject?.release();
-      if(typeof fileBeingRecorded.value !== "undefined")
-      {
-        records.value = [fileBeingRecorded.value, ...records.value];
+    /**
+     * Initializes new file (object) for recording
+     */
+    const setNewFile = async () => {
+      filePath = getFilePath();
+
+
+      if (isPlatform("ios")) {
+        const filePathOnly = filePath.substring(0,filePath.lastIndexOf('/'));
+        const fileName = filePath.substring(filePath.lastIndexOf('/')+1);
+        await file.createFile(filePathOnly, fileName, true);
       }
-      isRecording.value = false;
+      recordFile = media.create(filePath);
     }
 
-    const cacheRecords = () => {
-      const pathsToRecords = records.value.map((rec) => {
-        return rec.filePath;
-      });
-      Storage.set({
-        key: 'soundrecords',
-        value: JSON.stringify(pathsToRecords)
-      });
-    };
+    const startRecording = async () => {
+      isRecording.value = true;
+      await setNewFile();
+      recordFile.startRecord();      
+    }
 
-    const loadRecords = async () => {
-        const pathsToRecords = await Storage.get({key: 'soundrecords'});
-        const pathsToRecordsArray = pathsToRecords.value ? JSON.parse(pathsToRecords.value) : [];
-        for (const path of pathsToRecordsArray) {
-          records.value.push({
-            isPlaying: false,
-            fileName: getFileName(path),
-            filePath: path
-          })
+    const stopRecording = () => {
+      recordFile.stopRecord();
+      recordFile.release();
+      recordPaths.value = [filePath, ...recordPaths.value];
+      isRecording.value =  false;
+    }
+
+    const myObserver = {
+      next(data: any) {
+        if (data == 4) {
+          recordFile.release();
+          recordPlayingPath.value = "";
         }
-    };
+        console.log(data)
+      },
+      error(e: any) {
+        console.log(e)
+      },
+      complete() {
+        console.log("request complete")
+      }
+    }
 
-    watch(records, cacheRecords);
+    const playRecord = (path: string) => {
+      recordPlayingPath.value = path;
+      recordFile = media.create(path);
+      recordFile.play();
+      recordFile.onStatusUpdate.subscribe(myObserver);
+    }
+
+    const stopRecord = () => {
+      recordFile.stop();
+      recordFile.release();
+      recordPlayingPath.value = "";
+    }
+    
+    const cacheRecords = () => {
+      Storage.set({
+        key: 'recordPaths',
+        value: JSON.stringify(recordPaths.value)
+      });
+    }
+    
+    const loadRecords = async () => {
+      
+      const result = await Storage.get({key: 'recordPaths'});
+      console.log(result);
+      if (result.value !== null) {
+        recordPaths.value = JSON.parse(result.value);
+        console.log(recordPaths.value);
+        recordsLoaded.value = true;
+      }
+    }
+
+    const deleteRecord = (path: string) => {
+      // const filePathOnly = path.substring(0,path.lastIndexOf('/'));
+      // const fileName = path.substring(path.lastIndexOf('/')+1);
+      // await file.removeFile(filePathOnly, fileName);
+      recordPaths.value = recordPaths.value.filter((rec) => rec !== path);
+    }
+
+    watch(recordPaths, cacheRecords);
     onMounted(async () => {
-      await loadRecords();
-      console.log(records.value);
+      const loading = await loadingController
+        .create({
+          message: 'Načítám nahrávky...',
+        });
+      await loading.present();
+      await loadRecords();      
+      loading.dismiss();
     });
-  
-    /* Playing records */
-
-    const playRecord = (record: SoundRecord) => {
-      console.log(fileBeingRecorded.value?.mediaObject);
-      fileBeingRecorded.value?.mediaObject?.play();
-      record.mediaObject = Media.create(record.filePath);
-      record.mediaObject.play();
-      record.isPlaying = true;
-    }
-
-    const stopRecord = (record: SoundRecord) => {
-      console.log(record);
-      record.mediaObject?.stop();
-      record.mediaObject?.release();
-      record.isPlaying = false;
-    }
-
     
     return {
-      micOutline, playOutline, stopOutline,
       isRecording,
       playRecord,
-      startRecording,
-      stopRecording,
-      stopRecord,
-      records
+      recordPaths, recordPlayingPath,
+      recordsLoaded,
+      startRecording, stopRecording, stopRecord,
+      deleteRecord,
+      micOutline, playOutline, stopOutline, trash
     }
   },
 })
 </script>
-
-
