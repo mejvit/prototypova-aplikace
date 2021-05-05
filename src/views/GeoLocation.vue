@@ -55,11 +55,6 @@ export default defineComponent({
     const position = ref<GeolocationPosition>();
     const mapContainer = ref<HTMLElement>();
 
-    const wait = Geolocation.watchPosition({}, (position, err) => {
-      console.log("pos tracked");
-      console.log(position);
-    });
-
 
     onMounted(async () => {
       const loading = await loadingController
@@ -75,7 +70,7 @@ export default defineComponent({
       console.log(place);
       const point = new Point(place);
 
-      const map = new Map({
+      new Map({
         target: mapContainer.value,
         view: new View({
           zoom: 0,

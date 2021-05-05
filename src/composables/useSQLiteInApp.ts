@@ -1,10 +1,8 @@
 
-import { capSQLiteResult, capSQLiteSet, SQLiteDBConnection } from '@capacitor-community/sqlite';
+import { SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { Result, useSQLite } from 'vue-sqlite-hook/dist';
-import { getCurrentInstance } from 'vue';
-
 export function useSQLiteInApp() {
-  const {createConnection, isDatabase, retrieveConnection, retrieveAllConnections} = useSQLite();
+  const {createConnection, isDatabase, retrieveConnection } = useSQLite();
   const dbName = "mojezaznamy";
   let result: Result;
   let db: Result | SQLiteDBConnection | null;
@@ -22,7 +20,7 @@ export function useSQLiteInApp() {
         );
         PRAGMA user_version = 1;
         `;      
-    const result = await db.execute(dbStructure);
+    result = await db.execute(dbStructure);
   };
 
   const getDbInstance = async function(): Promise<SQLiteDBConnection> {
@@ -44,13 +42,6 @@ export function useSQLiteInApp() {
       result = await db.open();
     }
     return db;
-  }
-
-  const closeDb = async function() {
-    if (db instanceof SQLiteDBConnection) {
-      result = await db.close();
-      console.log(result);
-    }
   }
 
   return {

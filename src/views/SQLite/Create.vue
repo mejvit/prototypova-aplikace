@@ -44,7 +44,7 @@
 
 import { 
   IonBackButton, IonButton, IonButtons, IonContent, 
-  IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonTextarea, IonToolbar,
+  IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonTextarea, IonToolbar, IonTitle,
   isPlatform
 } from "@ionic/vue";
 import { defineComponent, getCurrentInstance, ref } from 'vue';
@@ -56,7 +56,9 @@ import { useRouter } from 'vue-router';
 export default defineComponent({
   name: 'SQLiteCreate',
   components: {
-    IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonTextarea, IonToolbar,
+    IonBackButton, IonButton, IonButtons,
+    IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage,
+    IonTextarea, IonTitle, IonToolbar,
   },
   setup() {
     const hybridPlatform = ref<boolean>(isPlatform("hybrid"));

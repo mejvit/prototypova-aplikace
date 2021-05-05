@@ -44,7 +44,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent, getCurrentInstance, onMounted, ref } from 'vue';
 import { addOutline, eyeOutline, pencilOutline, trashOutline } from 'ionicons/icons';
-import { capSQLiteSet, SQLiteDBConnection } from '@capacitor-community/sqlite';
+import { SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { DbRecord } from '../../composables/useSQLiteInApp';
 import { useRouter } from 'vue-router';
 

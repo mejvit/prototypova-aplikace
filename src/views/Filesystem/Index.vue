@@ -32,13 +32,12 @@
 <script lang="ts">
 import PageHeader from "@/components/PageHeader.vue";
 import { 
-  IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon, IonImg,
-  IonLabel,
-  IonPage, IonRow, IonInput, IonItem, IonText,
+  IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon,
+  IonPage, IonRow, IonItem, IonList, IonText,
   alertController, actionSheetController, onIonViewWillEnter 
 } from '@ionic/vue';
 import { useRouter } from 'vue-router';
-import { computed, defineComponent, onMounted, readonly, ref } from "vue";
+import { computed, defineComponent, onMounted, ref } from "vue";
 import { addOutline, closeOutline, documentTextOutline, createOutline, ellipsisHorizontal, trashOutline } from 'ionicons/icons';
 import { Plugins, FilesystemDirectory, ReaddirResult } from '@capacitor/core';
 
@@ -52,6 +51,7 @@ export default defineComponent({
     IonFab, IonFabButton,
     IonGrid,
     IonIcon, IonItem,
+    IonList,
     IonPage,
     IonRow,
     IonText,
@@ -206,7 +206,7 @@ export default defineComponent({
 
     onMounted(async () => {
       try {
-        const ret = await Filesystem.mkdir({
+        await Filesystem.mkdir({
           path: appDir,
           directory: FilesystemDirectory.Documents,
           recursive: false

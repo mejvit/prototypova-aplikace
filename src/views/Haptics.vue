@@ -38,6 +38,7 @@ export default defineComponent({
     };
 
     return {
+      HapticsNotificationType,
       notification,
       selectionStart,
       vibrate,

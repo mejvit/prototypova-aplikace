@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import { Plugins, FileReadResult, FilesystemDirectory, FilesystemEncoding } from '@capacitor/core';
 import {
   IonBackButton, IonButton, IonButtons,
