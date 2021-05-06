@@ -2,6 +2,7 @@
   <ion-page>
     <page-header>Poloha zařízení</page-header>
     <ion-content>
+      <page-header-ios>Poloha zařízení</page-header-ios>
       <div style="width: 100vw; height: 50vh">
             <div ref="mapContainer" style="height: 100%; width: 100%;"></div>
       </div>
@@ -39,6 +40,7 @@ import {
 import { defineComponent, onMounted, ref } from 'vue';
 import { Plugins, GeolocationPosition } from "@capacitor/core";
 import {useGeographic} from 'ol/proj';
+import PageHeaderIos from '@/components/PageHeaderIos.vue';
 
 useGeographic();
 
@@ -48,7 +50,8 @@ export default defineComponent({
   name: "GeoLocation",
   components: {
     IonContent, IonItem, IonItemDivider, IonLabel, IonPage, 
-    PageHeader
+    PageHeader,
+    PageHeaderIos
   },
   setup() {
     const coordsLoaded = ref<boolean>(false);

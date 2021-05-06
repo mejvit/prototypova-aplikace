@@ -2,11 +2,7 @@
   <ion-page>
     <page-header>Úvodní stránka</page-header>    
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Úvodní stránka</ion-title>
-        </ion-toolbar>
-      </ion-header>
+      <page-header-ios>Úvodní stránka</page-header-ios>
       <ion-grid>
         <ion-row>
           <ion-col size="6" v-for="(link, i) in appLinks" :key="i" >
@@ -26,10 +22,11 @@
 <script lang="ts">
 import PageHeader from '../components/PageHeader.vue'
 import {
-  IonCard, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar
+  IonCard, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow,
 } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
+import PageHeaderIos from '@/components/PageHeaderIos.vue';
 
 
 export default defineComponent({
@@ -37,12 +34,11 @@ export default defineComponent({
   components: {
     IonCard, IonCardHeader, IonCardTitle, IonCol, IonContent,
     IonGrid,
-    IonHeader,
     IonIcon,
     IonPage,
     IonRow,
-    IonTitle, IonToolbar,
-    PageHeader
+    PageHeader,
+    PageHeaderIos
   },
   inject: ['appLinks'],
   setup() {    

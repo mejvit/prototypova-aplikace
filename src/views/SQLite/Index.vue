@@ -2,6 +2,7 @@
   <ion-page>
     <page-header>Databáze SQLite</page-header>
     <ion-content v-if="hybridPlatform">
+      <page-header-ios>Databáze SQLite</page-header-ios>
       <ion-list>
         <ion-list-header>Uložené záznamy</ion-list-header>
         <ion-item v-for="record in records" :key="record.id">
@@ -47,13 +48,14 @@ import { addOutline, eyeOutline, pencilOutline, trashOutline } from 'ionicons/ic
 import { SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { DbRecord } from '../../composables/useSQLiteInApp';
 import { useRouter } from 'vue-router';
+import PageHeaderIos from "@/components/PageHeaderIos.vue";
 
 export default defineComponent({
   name: "SQLiteIndex",
   components: {
     IonContent, IonFab, IonFabButton, IonIcon, IonItem, IonLabel, IonList, IonListHeader,
     IonPage,
-    PageHeader,
+    PageHeader,PageHeaderIos
   },
   setup() {
     const hybridPlatform = ref<boolean>(isPlatform("hybrid"));

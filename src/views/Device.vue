@@ -2,6 +2,7 @@
   <ion-page>
     <page-header>Informace o zařízení</page-header>
     <ion-content :fullscreen="true">
+      <page-header-ios>Informace o zařízení</page-header-ios>
       <ion-list v-if="infoLoaded">
         <ion-list-header>
           <ion-label>Zařízení</ion-label>
@@ -127,6 +128,7 @@ import {
 } from "@ionic/vue";
 import { defineComponent, onMounted, ref } from "vue";
 import { Plugins, DeviceInfo, DeviceBatteryInfo, DeviceLanguageCodeResult } from "@capacitor/core";
+import PageHeaderIos from "@/components/PageHeaderIos.vue";
 
 const { Device } = Plugins;
 
@@ -135,6 +137,7 @@ export default defineComponent({
   components: {
     IonContent, IonLabel, IonItem, IonList, IonListHeader, IonPage,
     PageHeader,
+    PageHeaderIos,
   },
   setup() {
     const infoLoaded = ref<boolean>(false);

@@ -2,6 +2,7 @@
   <ion-page>
     <page-header>Fotoaparát</page-header>
     <ion-content :fullscreen="true">
+      <page-header-ios>Fotoaparát</page-header-ios>
       <div v-if="photos.length == 0" class="no-photos">
         <p>Zatím nebyly pořízeny žádné fotografie</p>
       </div>
@@ -30,6 +31,7 @@ import {
 import { defineComponent, ref } from "vue";
 import { Plugins, CameraResultType, CameraSource, CameraPhoto } from "@capacitor/core";
 import { camera, close, trash } from 'ionicons/icons';
+import PageHeaderIos from "@/components/PageHeaderIos.vue";
 
 const { Camera } = Plugins;
 
@@ -37,11 +39,11 @@ export default defineComponent({
   name: "Camera",
   components: {
     IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon, IonImg, IonPage, IonRow, 
-    PageHeader
+    PageHeader, PageHeaderIos
   },
 
   setup() {
-    const photos = ref<CameraPhoto[]>([]);
+   const photos = ref<CameraPhoto[]>([]);
 
     const takePhoto = async function() {
       const photo = await Camera.getPhoto({

@@ -2,6 +2,7 @@
   <ion-page>
     <page-header>Haptické funkce</page-header>
     <ion-content :fullscreen="true">
+      <page-header-ios>Haptické funkce</page-header-ios>
       <ion-button expand="block" @click="notification(HapticsNotificationType.SUCCESS)">Notifikace</ion-button>
       <ion-button expand="block" @click="selectionStart">SelectionStart</ion-button>
       <ion-button expand="block" @click="vibrate">Vibrace</ion-button>
@@ -14,6 +15,7 @@ import PageHeader from "@/components/PageHeader.vue";
 import { IonButton, IonContent, IonPage } from "@ionic/vue";
 import { defineComponent } from "vue";
 import { Plugins, HapticsNotificationOptions, HapticsNotificationType } from "@capacitor/core";
+import PageHeaderIos from "@/components/PageHeaderIos.vue";
 
 const { Haptics } = Plugins;
 
@@ -22,6 +24,7 @@ export default defineComponent({
   components: {
     IonButton, IonContent, IonPage,
     PageHeader,
+    PageHeaderIos,
   },
   setup() {
     const vibrate = function () {

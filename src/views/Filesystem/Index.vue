@@ -2,6 +2,7 @@
   <ion-page>
     <page-header>Souborový systém</page-header>
     <ion-content :fullscreen="true" class="ion-padding">
+      <page-header-ios>Souborový systém</page-header-ios>
       <ion-list>
         <ion-item v-for="(file, i) in fileList" :key="i">
           <ion-icon slot="start" :icon="documentTextOutline"></ion-icon>
@@ -40,6 +41,7 @@ import { useRouter } from 'vue-router';
 import { computed, defineComponent, onMounted, ref } from "vue";
 import { addOutline, closeOutline, documentTextOutline, createOutline, ellipsisHorizontal, trashOutline } from 'ionicons/icons';
 import { Plugins, FilesystemDirectory, ReaddirResult } from '@capacitor/core';
+import PageHeaderIos from "@/components/PageHeaderIos.vue";
 
 
 
@@ -55,7 +57,8 @@ export default defineComponent({
     IonPage,
     IonRow,
     IonText,
-    PageHeader
+    PageHeader,
+    PageHeaderIos
   },
   setup() {
     const { Filesystem, Toast } = Plugins;

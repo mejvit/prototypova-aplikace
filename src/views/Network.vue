@@ -2,6 +2,7 @@
   <ion-page>
     <page-header>Připojení k síti</page-header>
     <ion-content :fullscreen="true">
+      <page-header-ios>Připojení k síti</page-header-ios>
       <ion-list v-if="statusLoaded">
         <ion-list-header>
           <ion-label>Stav připojení</ion-label>
@@ -31,6 +32,7 @@ import {
 } from '@ionic/vue';
 import { defineComponent, onMounted, ref } from 'vue';
 import { Plugins, NetworkStatus } from "@capacitor/core";
+import PageHeaderIos from "@/components/PageHeaderIos.vue";
 
 const { Network, Toast } = Plugins;
 
@@ -38,7 +40,7 @@ export default defineComponent({
   name: "Network",
   components: {
     IonContent, IonItem, IonLabel, IonList, IonListHeader, IonPage,
-    PageHeader
+    PageHeader, PageHeaderIos
   },
   setup() {
     const statusLoaded = ref<boolean>(false);

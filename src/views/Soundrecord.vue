@@ -2,6 +2,7 @@
   <ion-page>
     <page-header>Nahrávání zvuku</page-header>
     <ion-content>
+      <page-header-ios>Nahrávání zvuku</page-header-ios>
       <ion-list v-if="recordsLoaded">
          <ion-item-sliding 
           v-for="(path, i) in recordPaths" :key="i"
@@ -46,6 +47,7 @@ import { Media, MediaObject} from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { defineComponent, onMounted, ref, watch } from 'vue'
 import { Plugins } from '@capacitor/core';
+import PageHeaderIos from '@/components/PageHeaderIos.vue';
 
 export default defineComponent({
   components: {
@@ -54,7 +56,7 @@ export default defineComponent({
     IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
     IonLabel, IonList,
     IonPage,
-    PageHeader
+    PageHeader, PageHeaderIos
   },
   setup() {
     const { Storage } = Plugins;
