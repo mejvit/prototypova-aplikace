@@ -1,9 +1,9 @@
 <template>
   <ion-app>
   <ion-menu contentId="content" menuId="main-menu">
-    <ion-list-header>Nativní funkce</ion-list-header>
     <ion-content>
       <ion-list>
+      <ion-list-header>Nativní funkce</ion-list-header>
         <ion-menu-toggle>
           <ion-item router-link="/home" :class="{ selected: route.path === '/home' }">
             <ion-icon slot="start" :icon="trailSignOutline" />
