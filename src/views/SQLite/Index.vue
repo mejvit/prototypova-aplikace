@@ -1,8 +1,6 @@
 <template>
-  <ion-page>
-    <page-header>Databáze SQLite</page-header>
-    <ion-content v-if="hybridPlatform">
-      <page-header-ios>Databáze SQLite</page-header-ios>
+  <page-container title="Databáze SQLite">
+    <div v-if="hybridPlatform">
       <ion-list>
         <ion-list-header>Uložené záznamy</ion-list-header>
         <ion-item v-for="record in records" :key="record.id">
@@ -26,19 +24,16 @@
           <ion-icon :icon="addOutline"></ion-icon>
         </ion-fab-button>
       </ion-fab>
-    </ion-content>
-    <ion-content v-else>
-      <div class="no-sqlite">
-        <p>Na této platformě není podporována SQLite databáze</p>
-      </div>
-    </ion-content>
-  </ion-page>
+    </div>
+    <div class="no-sqlite" v-else>
+      <p>Na této platformě není podporována SQLite databáze</p>
+    </div>
+  </page-container>
 </template>
 
 <script lang="ts">
-import PageHeader from "@/components/PageHeader.vue";
 import { 
-  IonContent, IonFab, IonFabButton, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonPage,
+  IonFab, IonFabButton, IonIcon, IonItem, IonLabel, IonList, IonListHeader,
   alertController,
   isPlatform,
   onIonViewWillEnter
@@ -48,14 +43,13 @@ import { addOutline, eyeOutline, pencilOutline, trashOutline } from 'ionicons/ic
 import { SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { DbRecord } from '../../composables/useSQLiteInApp';
 import { useRouter } from 'vue-router';
-import PageHeaderIos from "@/components/PageHeaderIos.vue";
+import PageContainer from "@/components/PageContainer.vue";
 
 export default defineComponent({
   name: "SQLiteIndex",
   components: {
-    IonContent, IonFab, IonFabButton, IonIcon, IonItem, IonLabel, IonList, IonListHeader,
-    IonPage,
-    PageHeader,PageHeaderIos
+    IonFab, IonFabButton, IonIcon, IonItem, IonLabel, IonList, IonListHeader,
+    PageContainer
   },
   setup() {
     const hybridPlatform = ref<boolean>(isPlatform("hybrid"));

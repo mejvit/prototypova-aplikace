@@ -1,45 +1,40 @@
 <template>
-  <ion-page>
-    <page-header>Fotoaparát</page-header>
-    <ion-content :fullscreen="true">
-      <page-header-ios>Fotoaparát</page-header-ios>
-      <div v-if="photos.length == 0" class="no-photos">
-        <p>Zatím nebyly pořízeny žádné fotografie</p>
-      </div>
-      <ion-grid v-else>
-        <ion-row>
-          <ion-col size="6" :key="photo.webPath" v-for="photo in photos">
-            <ion-img :src="photo.webPath" @click="showActionSheet(photo.webPath)"></ion-img>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-      <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <ion-fab-button @click="takePhoto()">
-          <ion-icon :icon="camera"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-    </ion-content>
-  </ion-page>
+  <page-container title="Fotoaparát">
+    <div v-if="photos.length == 0" class="no-photos">
+      <p>Zatím nebyly pořízeny žádné fotografie</p>
+    </div>
+    <ion-grid v-else>
+      <ion-row>
+        <ion-col size="6" :key="photo.webPath" v-for="photo in photos">
+          <ion-img :src="photo.webPath" @click="showActionSheet(photo.webPath)"></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+      <ion-fab-button @click="takePhoto()">
+        <ion-icon :icon="camera"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </page-container>
 </template>
 
 <script lang="ts">
-import PageHeader from "@/components/PageHeader.vue";
 import { 
-  IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon, IonImg, IonPage, IonRow, 
+  IonCol, IonFab, IonFabButton, IonGrid, IonIcon, IonImg, IonRow, 
   actionSheetController 
 } from '@ionic/vue';
 import { defineComponent, ref } from "vue";
 import { Plugins, CameraResultType, CameraSource, CameraPhoto } from "@capacitor/core";
 import { camera, close, trash } from 'ionicons/icons';
-import PageHeaderIos from "@/components/PageHeaderIos.vue";
+import PageContainer from "@/components/PageContainer.vue";
 
 const { Camera } = Plugins;
 
 export default defineComponent({
   name: "Camera",
   components: {
-    IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon, IonImg, IonPage, IonRow, 
-    PageHeader, PageHeaderIos
+    IonCol, IonFab, IonFabButton, IonGrid, IonIcon, IonImg, IonRow,
+    PageContainer
   },
 
   setup() {

@@ -1,62 +1,53 @@
 <template>
-  <ion-page>
-    <page-header>Nahrávání zvuku</page-header>
-    <ion-content>
-      <page-header-ios>Nahrávání zvuku</page-header-ios>
-      <ion-list v-if="recordsLoaded">
-         <ion-item-sliding 
-          v-for="(path, i) in recordPaths" :key="i"
-          :disabled="recordPlayingPath === path && recordPlayingPath != ''"
-        >
-          <ion-item :disabled="recordPlayingPath !== path && recordPlayingPath != ''">
-            <span slot="start">
-              <div v-on="recordPlayingPath === path ? {click: () => stopRecord() } : { click: () => playRecord(path) }">
-                <ion-icon :icon="recordPlayingPath === path ? stopOutline : playOutline" class="record"></ion-icon>
-              </div>
-            </span>       
-            <ion-label>{{ path.substring(path.lastIndexOf('/')+1) }}</ion-label>
-          </ion-item>
-          <ion-item-options>
-            <ion-item-option color="danger" @click="deleteRecord(path)">
-              <ion-icon slot="start" :icon="trash"></ion-icon>
-            </ion-item-option>
-          </ion-item-options>
-        </ion-item-sliding>
-      </ion-list>
-      <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <ion-fab-button v-on="isRecording ? {click: () => stopRecording() } : { click: () => startRecording() }">
-          <ion-icon :icon="isRecording ? stopOutline : micOutline"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-    </ion-content>
-  </ion-page>
+  <page-container title="Nahrávání zvuku">
+    <ion-list v-if="recordsLoaded">
+      <ion-item-sliding 
+      v-for="(path, i) in recordPaths" :key="i"
+      :disabled="recordPlayingPath === path && recordPlayingPath != ''"
+      >
+        <ion-item :disabled="recordPlayingPath !== path && recordPlayingPath != ''">
+          <span slot="start">
+            <div v-on="recordPlayingPath === path ? {click: () => stopRecord() } : { click: () => playRecord(path) }">
+              <ion-icon :icon="recordPlayingPath === path ? stopOutline : playOutline" class="record"></ion-icon>
+            </div>
+          </span>       
+          <ion-label>{{ path.substring(path.lastIndexOf('/')+1) }}</ion-label>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="danger" @click="deleteRecord(path)">
+            <ion-icon slot="start" :icon="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+      <ion-fab-button v-on="isRecording ? {click: () => stopRecording() } : { click: () => startRecording() }">
+        <ion-icon :icon="isRecording ? stopOutline : micOutline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </page-container>
 </template>
 
 <script lang="ts">
-import PageHeader from '@/components/PageHeader.vue'
 import { micOutline, playOutline, stopOutline, trash } from 'ionicons/icons';
 import {
-  IonContent,
   IonFab, IonFabButton,
   IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
   IonLabel, IonList,
-  IonPage,
   isPlatform, loadingController
 } from '@ionic/vue';
 import { Media, MediaObject} from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { defineComponent, onMounted, ref, watch } from 'vue'
 import { Plugins } from '@capacitor/core';
-import PageHeaderIos from '@/components/PageHeaderIos.vue';
+import PageContainer from '@/components/PageContainer.vue';
 
 export default defineComponent({
   components: {
-    IonContent,
     IonFab, IonFabButton,
     IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
     IonLabel, IonList,
-    IonPage,
-    PageHeader, PageHeaderIos
+    PageContainer
   },
   setup() {
     const { Storage } = Plugins;

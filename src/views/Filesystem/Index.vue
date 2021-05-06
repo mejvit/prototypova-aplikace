@@ -1,47 +1,43 @@
 <template>
-  <ion-page>
-    <page-header>Souborový systém</page-header>
-    <ion-content :fullscreen="true" class="ion-padding">
-      <page-header-ios>Souborový systém</page-header-ios>
-      <ion-list>
-        <ion-item v-for="(file, i) in fileList" :key="i">
-          <ion-icon slot="start" :icon="documentTextOutline"></ion-icon>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="10">
-                <ion-text color="primary" @click="router.push('/filesystem/'+file.replace('.txt', ''))">{{ file }}</ion-text>
-              </ion-col>
-              <ion-col size="2">
-                <span @click="showOptions(file)">
-                  <ion-icon :icon="ellipsisHorizontal"></ion-icon>
-                </span>
-              </ion-col>
-            </ion-row>
-          </ion-grid>          
-        </ion-item>
-      </ion-list>
-      <p class="filesystem-info">* soubory se ukládají do v adresáři dokumenty do složky prototypova_aplikace</p>
-      <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-        <ion-fab-button router-link="/filesystem/create">
-          <ion-icon :icon="addOutline"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-    </ion-content>
-  </ion-page>
+  <page-container title="Souborový systém">
+    <ion-list>
+      <ion-item v-for="(file, i) in fileList" :key="i">
+        <ion-icon slot="start" :icon="documentTextOutline"></ion-icon>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="10">
+              <ion-text color="primary" @click="router.push('/filesystem/'+file.replace('.txt', ''))">{{ file }}</ion-text>
+            </ion-col>
+            <ion-col size="2">
+              <span @click="showOptions(file)">
+                <ion-icon :icon="ellipsisHorizontal"></ion-icon>
+              </span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>          
+      </ion-item>
+    </ion-list>
+    <p class="filesystem-info">* soubory se ukládají do v adresáři dokumenty do složky prototypova_aplikace</p>
+    <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+      <ion-fab-button router-link="/filesystem/create">
+        <ion-icon :icon="addOutline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </page-container>
 </template>
 
 <script lang="ts">
 import PageHeader from "@/components/PageHeader.vue";
 import { 
-  IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon,
-  IonPage, IonRow, IonItem, IonList, IonText,
+  IonCol, IonFab, IonFabButton, IonGrid, IonIcon,
+  IonRow, IonItem, IonList, IonText,
   alertController, actionSheetController, onIonViewWillEnter 
 } from '@ionic/vue';
 import { useRouter } from 'vue-router';
 import { computed, defineComponent, onMounted, ref } from "vue";
 import { addOutline, closeOutline, documentTextOutline, createOutline, ellipsisHorizontal, trashOutline } from 'ionicons/icons';
 import { Plugins, FilesystemDirectory, ReaddirResult } from '@capacitor/core';
-import PageHeaderIos from "@/components/PageHeaderIos.vue";
+import PageContainer from "@/components/PageContainer.vue";
 
 
 
@@ -49,16 +45,14 @@ import PageHeaderIos from "@/components/PageHeaderIos.vue";
 export default defineComponent({
   name: "FilesystemIndex",
   components: {
-    IonCol, IonContent,
+    IonCol,
     IonFab, IonFabButton,
     IonGrid,
     IonIcon, IonItem,
     IonList,
-    IonPage,
     IonRow,
     IonText,
-    PageHeader,
-    PageHeaderIos
+    PageContainer
   },
   setup() {
     const { Filesystem, Toast } = Plugins;

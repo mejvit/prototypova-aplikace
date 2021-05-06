@@ -1,27 +1,23 @@
 <template>
-  <ion-page>
-    <page-header>Poloha zařízení</page-header>
-    <ion-content>
-      <page-header-ios>Poloha zařízení</page-header-ios>
-      <div style="width: 100vw; height: 50vh">
-            <div ref="mapContainer" style="height: 100%; width: 100%;"></div>
-      </div>
-            <div v-if="coordsLoaded">
-            <ion-item-divider color="secondary">
-              <ion-label>Zeměpisná šířka</ion-label>
-            </ion-item-divider>
-            <ion-item>
-              <ion-label>{{ position.coords.latitude }}</ion-label>
-            </ion-item>
-            <ion-item-divider color="tertiary">
-              <ion-label>Zeměpisná délka</ion-label>
-            </ion-item-divider>
-            <ion-item>
-              <ion-label>{{ position.coords.longitude }}</ion-label>
-            </ion-item>
-          </div>
-    </ion-content>
-  </ion-page>
+  <page-container title="Poloha zařízení">
+    <div style="width: 100vw; height: 50vh">
+      <div ref="mapContainer" style="height: 100%; width: 100%;"></div>
+    </div>
+    <div v-if="coordsLoaded">
+      <ion-item-divider color="secondary">
+        <ion-label>Zeměpisná šířka</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>{{ position.coords.latitude }}</ion-label>
+      </ion-item>
+      <ion-item-divider color="tertiary">
+        <ion-label>Zeměpisná délka</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>{{ position.coords.longitude }}</ion-label>
+      </ion-item>
+    </div>
+  </page-container>
 </template>
 
 <script lang="ts">
@@ -32,15 +28,14 @@ import Point from 'ol/geom/Point';
 import {OSM, Vector as VectorSource} from 'ol/source';
 import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
-import PageHeader from "@/components/PageHeader.vue";
 import { 
-  IonContent, IonItem, IonItemDivider, IonLabel, IonPage,
+  IonItem, IonItemDivider, IonLabel,
   loadingController
 } from '@ionic/vue';
 import { defineComponent, onMounted, ref } from 'vue';
 import { Plugins, GeolocationPosition } from "@capacitor/core";
 import {useGeographic} from 'ol/proj';
-import PageHeaderIos from '@/components/PageHeaderIos.vue';
+import PageContainer from '@/components/PageContainer.vue';
 
 useGeographic();
 
@@ -49,9 +44,8 @@ const { Geolocation } = Plugins;
 export default defineComponent({
   name: "GeoLocation",
   components: {
-    IonContent, IonItem, IonItemDivider, IonLabel, IonPage, 
-    PageHeader,
-    PageHeaderIos
+    IonItem, IonItemDivider, IonLabel,
+    PageContainer
   },
   setup() {
     const coordsLoaded = ref<boolean>(false);
