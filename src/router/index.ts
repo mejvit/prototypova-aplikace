@@ -7,6 +7,7 @@ import GeoLocation from '../views/GeoLocation.vue';
 import Haptics from '../views/Haptics.vue';
 import Soundrecord from '../views/Soundrecord.vue';
 import Network from '../views/Network.vue';
+import TestsNative from '../views/TestsNative.vue';
 import FilesystemIndex from '../views/Filesystem/Index.vue';
 import FilesystemEdit from '../views/Filesystem/Edit.vue';
 import FilesystemCreate from '../views/Filesystem/Create.vue';
@@ -100,6 +101,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/containers',
     name: 'Containers',
     component: Containers
+  },
+
+  {
+    path: '/tests-native',
+    name: 'TestsNative',
+    //component: () => import('../views/Test.vue')
+    component: TestsNative
   },
 ]
 

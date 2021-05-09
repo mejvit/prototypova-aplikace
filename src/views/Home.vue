@@ -11,6 +11,15 @@
             </ion-card>
           </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-card router-link="/tests-native" class="custom-card">
+              <ion-card-header class="ion-text-center">
+                <ion-card-title class="card-title">Test nativ. fcí</ion-card-title>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        </ion-row>
       </ion-grid>
   </page-container>
 </template>
@@ -36,7 +45,11 @@ export default defineComponent({
   inject: ['appLinks'],
   setup() {    
     const router = useRouter();
-    return {router}
+    const writeTimeAndRedirect =  () => {
+      console.log(new Date().getTime());
+      router.push('/test');
+    }
+    return {router, writeTimeAndRedirect}
   }
 });
 </script>
