@@ -1,6 +1,6 @@
 <template>
   <ion-app>
-  <ion-menu contentId="content" menuId="main-menu">
+  <ion-menu content-id="content" menu-id="main-menu">
     <ion-content>
       <ion-list>
       <ion-list-header>Nativní funkce</ion-list-header>
