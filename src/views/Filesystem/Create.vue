@@ -75,7 +75,8 @@ export default defineComponent({
           path: 'prototypova_aplikace/' + fileName.value + '.txt',
           data: fileContent.value,
           directory: FilesystemDirectory.Documents,
-          encoding: FilesystemEncoding.UTF8
+          encoding: FilesystemEncoding.UTF8,
+          recursive: true
         });
         console.log('Wrote file', result);
         router.back();
