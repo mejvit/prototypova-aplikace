@@ -6,7 +6,7 @@
     <ion-grid v-else>
       <ion-row>
         <ion-col size="6" :key="photo.webPath" v-for="photo in photos">
-          <ion-img :src="photo.webPath" @click="showActionSheet(photo.webPath)"></ion-img>
+          <ion-img :src="photo.dataUrl" @click="showActionSheet(photo.dataUrl)"></ion-img>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -21,7 +21,7 @@
 <script lang="ts">
 import { 
   IonCol, IonFab, IonFabButton, IonGrid, IonIcon, IonImg, IonRow, 
-  actionSheetController 
+  actionSheetController
 } from '@ionic/vue';
 import { defineComponent, ref } from "vue";
 import { Plugins, CameraResultType, CameraSource, CameraPhoto } from "@capacitor/core";
@@ -42,7 +42,7 @@ export default defineComponent({
 
     const takePhoto = async function() {
       const photo = await Camera.getPhoto({
-        resultType: CameraResultType.Uri,
+        resultType: CameraResultType.DataUrl,
         source: CameraSource.Camera,
         quality: 100
       });
@@ -78,7 +78,7 @@ export default defineComponent({
           ]
         }
       );
-
+      
       await actionSheet.present();
     };
 
