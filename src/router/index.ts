@@ -11,7 +11,6 @@ import TestsNative from '../views/TestsNative.vue';
 import FilesystemIndex from '../views/Filesystem/Index.vue';
 import FilesystemEdit from '../views/Filesystem/Edit.vue';
 import FilesystemCreate from '../views/Filesystem/Create.vue';
-import Containers from '../views/Containers.vue';
 import SQLiteIndex from '../views/SQLite/Index.vue';
 import SQLiteCreate from '../views/SQLite/Create.vue';
 import SQLiteShow from '../views/SQLite/Show.vue';
@@ -95,12 +94,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/network',
     name: 'Network',
     component: Network
-  },
-
-  {
-    path: '/containers',
-    name: 'Containers',
-    component: Containers
   },
 
   {
